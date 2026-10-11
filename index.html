@@ -9,24 +9,25 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>Sổ Calo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Be+Vietnam+Pro:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap">
 <style>
 :root{
-  --bg:#fbf7fb; --surface:#ffffff; --ink:#2b2333; --muted:#7a6f84; --line:#ece3ef;
-  --accent:#c2477e; --accent-soft:#f8e3ee; --mint:#2f9d84; --warn:#d0891c; --over:#c9433b;
-  --display:"Baloo 2","Be Vietnam Pro",system-ui,sans-serif;
+  --bg:#fbf7fb; --surface:#ffffff; --ink:#221a29; --muted:#5d5266; --line:#e6dbea;
+  --accent:#b03a6f; --on-accent:#ffffff; --accent-soft:#f8e3ee; --mint:#1f8a70; --warn:#b5730c; --over:#c0392f;
+  --display:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
   --body:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){:root{
-  --bg:#1a1520; --surface:#241d2c; --ink:#f2eaf5; --muted:#a99db3; --line:#372d40;
-  --accent:#ec7aae; --accent-soft:#3a2333; --mint:#5cc7ac; --warn:#e9ad4f; --over:#ef7a72; color-scheme:dark}}
+  --bg:#16121b; --surface:#221c29; --ink:#f7f2fa; --muted:#cbbfd4; --line:#3a3044;
+  --accent:#f291bd; --on-accent:#2a0d1c; --accent-soft:#3d2434; --mint:#6fd6bb; --warn:#f2bb5c; --over:#ff8f86; color-scheme:dark}}
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-text-size-adjust:100%;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
 .wrap{max-width:560px;margin:0 auto;padding-block:20px 48px;padding-inline:16px;display:flex;flex-direction:column;gap:18px}
-h1{font-family:var(--display);font-weight:800;font-size:1.9rem;margin:0;line-height:1.1}
-h2{font-family:var(--display);font-weight:700;font-size:1.15rem;margin:0}
+h1{font-family:var(--display);font-weight:800;font-size:1.75rem;letter-spacing:-.01em;margin:0;line-height:1.1}
+h2{font-family:var(--display);font-weight:700;font-size:1.2rem;margin:0}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .daynav{display:flex;align-items:center;gap:6px}
 .daynav button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:1rem;cursor:pointer}
@@ -34,76 +35,77 @@ h2{font-family:var(--display);font-weight:700;font-size:1.15rem;margin:0}
 .daynav span{font-weight:600;min-width:96px;text-align:center;font-variant-numeric:tabular-nums}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:12px}
 .summary{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
-.ring{position:relative;width:118px;height:118px}
+.ring{position:relative;width:132px;height:132px}
 .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
 .ring .num{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
 .ring .num b{font-family:var(--display);font-size:1.6rem;line-height:1}
-.ring .num small{color:var(--muted);font-size:.75rem}
+.ring .num small{color:var(--muted);font-size:.85rem}
 .ring circle.fg{transition:stroke-dashoffset .6s ease}
 .stats{display:flex;flex-direction:column;gap:6px;min-width:0}
 .stat{display:flex;justify-content:space-between;gap:8px;font-variant-numeric:tabular-nums}
 .stat span:first-child{color:var(--muted)}
-.pill{display:inline-block;font-size:.78rem;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--accent-soft);color:var(--accent)}
+.stat b{font-size:1.05rem}
+.pill{display:inline-block;font-size:.88rem;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--accent-soft);color:var(--accent)}
 .pill.ok{color:var(--mint)} .pill.warn{color:var(--warn)} .pill.over{color:var(--over)}
 .macros{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px 16px}
 .mac{display:flex;flex-direction:column;gap:4px;min-width:0}
-.mac .lbl{display:flex;justify-content:space-between;font-size:.85rem;font-variant-numeric:tabular-nums}
+.mac .lbl{display:flex;justify-content:space-between;font-size:.95rem;font-variant-numeric:tabular-nums}
 .mac .lbl span:first-child{color:var(--muted)}
 .bar{height:7px;border-radius:9px;background:var(--line);overflow:hidden}
 .bar i{display:block;height:100%;border-radius:9px;background:var(--mint);width:0;transition:width .5s ease}
 .bar i.warn{background:var(--warn)} .bar i.over{background:var(--over)}
 textarea,input,select{font:inherit;color:var(--ink)}
-textarea{width:100%;min-height:72px;resize:vertical;padding:12px 14px;border:1.5px solid var(--line);border-radius:16px;background:var(--surface)}
+textarea{width:100%;min-height:84px;font-size:1.05rem;resize:vertical;padding:12px 14px;border:1.5px solid var(--line);border-radius:16px;background:var(--surface)}
 textarea:focus,input:focus,select:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 .actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn{border:0;border-radius:14px;padding:11px 16px;font:600 .95rem var(--body);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
-.btn.primary{background:var(--accent);color:#fff;flex:1;justify-content:center;min-width:140px}
+.btn{border:0;border-radius:14px;padding:13px 18px;font:700 1rem var(--body);min-height:48px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn.primary{background:var(--accent);color:var(--on-accent);flex:1;justify-content:center;min-width:140px}
 .btn.ghost{background:var(--accent-soft);color:var(--accent)}
 .btn.small{padding:7px 12px;font-size:.85rem}
 .btn:disabled{opacity:.55;cursor:default}
-.preview{display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--muted)}
-.preview img{width:56px;height:56px;object-fit:cover;border-radius:12px}
+.preview{display:flex;align-items:center;gap:12px;font-size:.95rem;color:var(--muted)}
+.preview img{width:64px;height:64px;object-fit:cover;border-radius:12px}
 .preview button,.link{background:none;border:0;color:var(--accent);cursor:pointer;font:inherit;padding:0}
 .result{border:1.5px dashed var(--accent)}
 .it{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums}
 .it div{min-width:0}
-.it small{display:block;color:var(--muted);font-size:.8rem}
+.it small{display:block;color:var(--muted);font-size:.88rem}
 .it b{white-space:nowrap}
 .total{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:8px;font-weight:600;font-variant-numeric:tabular-nums}
-.note{font-size:.88rem;color:var(--muted)}
-.err{color:var(--over);font-size:.9rem}
+.note{font-size:.93rem;color:var(--muted)}
+.err{color:var(--over);font-size:.95rem;font-weight:600}
 .gaps{display:flex;flex-wrap:wrap;gap:6px}
-.gap{font-size:.82rem;padding:4px 10px;border-radius:99px;border:1px solid var(--line)}
+.gap{font-size:.9rem;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid var(--line)}
 .gap.need{border-color:var(--warn);color:var(--warn)}
 .gap.bad{border-color:var(--over);color:var(--over)}
 .gap.good{border-color:var(--mint);color:var(--mint)}
 .recs{display:flex;flex-direction:column;gap:10px}
 .rec{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:14px;background:var(--bg)}
 .rec div{min-width:0}
-.rec small{display:block;color:var(--muted);font-size:.8rem}
+.rec small{display:block;color:var(--muted);font-size:.88rem}
 .rec b{white-space:nowrap;font-variant-numeric:tabular-nums;text-align:right}
 .meal{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}
 .meal:last-child{border-bottom:0}
-.meal .t{color:var(--muted);font-size:.8rem;width:42px;flex:none;padding-top:2px;font-variant-numeric:tabular-nums}
+.meal .t{color:var(--muted);font-size:.88rem;width:42px;flex:none;padding-top:2px;font-variant-numeric:tabular-nums}
 .meal .d{flex:1;min-width:0}
-.meal .d small{color:var(--muted);display:block;font-size:.8rem}
+.meal .d small{color:var(--muted);display:block;font-size:.88rem}
 .meal .k{font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
 .meal .x{background:none;border:0;color:var(--muted);cursor:pointer;font-size:1.1rem;padding:0 4px}
 .empty{color:var(--muted);text-align:center;padding:14px 8px;font-size:.9rem}
 .form{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
 .field{display:flex;flex-direction:column;gap:4px;min-width:0}
 .field.full{grid-column:1/-1}
-.field label{font-size:.8rem;color:var(--muted)}
-.field input,.field select{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-variant-numeric:tabular-nums}
-.calc{font-size:.88rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.field label{font-size:.9rem;font-weight:600;color:var(--ink)}
+.field input,.field select{width:100%;min-height:46px;padding:10px 12px;font-size:1rem;border:1px solid var(--line);border-radius:10px;background:var(--bg);font-variant-numeric:tabular-nums}
+.calc{font-size:.95rem;color:var(--muted);font-variant-numeric:tabular-nums}
 .calc b{color:var(--ink)}
-details summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:1.15rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details summary{cursor:pointer;font-family:var(--display);font-weight:700;font-size:1.2rem;padding-block:4px;list-style:none;display:flex;justify-content:space-between;align-items:center}
 details summary::-webkit-details-marker{display:none}
 details summary::after{content:"＋";color:var(--muted);font-size:1rem}
 details[open] summary::after{content:"－"}
 .manual{display:grid;grid-template-columns:1fr 100px;gap:8px}
-.manual input{padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);width:100%}
-.foot{font-size:.78rem;color:var(--muted);text-align:center}
+.manual input{min-height:46px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);width:100%}
+.foot{font-size:.85rem;color:var(--muted);text-align:center}
 .banner{background:var(--accent-soft);border-radius:16px;padding:12px 14px;font-size:.9rem}
 @media (max-width:420px){.summary{grid-template-columns:1fr;justify-items:center}.stats{width:100%}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -148,7 +150,7 @@ details[open] summary::after{content:"－"}
     </div>
     <div class="err" id="err" hidden></div>
     <details>
-      <summary style="font-size:.95rem">Nhập tay (không cần mạng)</summary>
+      <summary style="font-size:1.05rem">Nhập tay (không cần mạng)</summary>
       <div class="manual" style="margin-top:10px">
         <input id="mName" placeholder="Tên món">
         <input id="mKcal" type="number" inputmode="numeric" placeholder="kcal">
@@ -203,18 +205,18 @@ details[open] summary::after{content:"－"}
     <summary>Cài đặt</summary>
     <div class="field full"><label for="provider">Nhà cung cấp AI (đều có gói miễn phí)</label>
       <select id="provider">
-        <option value="gemini">Google Gemini — nhận diện ảnh tốt, nhiều lượt free</option>
-        <option value="groq">Groq — rất nhanh, free ~1.000 lượt/ngày</option>
-        <option value="openrouter">OpenRouter — nhiều model free, 50 lượt/ngày</option>
+        <option value="gemini">Google Gemini (khuyên dùng)</option>
+        <option value="groq">Groq (rất nhanh)</option>
+        <option value="openrouter">OpenRouter (50 lượt/ngày)</option>
       </select></div>
     <div class="field full"><label for="key">API key</label><input id="key" type="password" autocomplete="off" placeholder="Dán key vào đây"></div>
     <div class="note" id="keyHelp"></div>
-    <div class="field full"><label for="model">Model (để trống = tự chọn)</label><input id="model" autocomplete="off" placeholder=""></div>
+    <div class="field full"><label for="model">Model (Tự động sẽ đổi model khi bị quá tải)</label><select id="model"></select></div>
     <div class="actions">
       <button class="btn primary" id="saveKey">Lưu key</button>
       <button class="btn ghost" id="testKey">Thử key</button>
     </div>
-    <div class="note" id="keyMsg">Key chỉ lưu trên máy này, không gửi đi đâu ngoài Google.</div>
+    <div class="note" id="keyMsg">Key chỉ lưu trên máy này, chỉ gửi tới nhà cung cấp AI bạn chọn.</div>
     <h2 style="margin-top:6px">Sao lưu dữ liệu</h2>
     <div class="note">Dữ liệu nằm trong trình duyệt của máy. Thỉnh thoảng nên sao lưu để không mất khi xóa dữ liệu Chrome.</div>
     <div class="actions">
@@ -247,17 +249,29 @@ details[open] summary::after{content:"－"}
 
   // ---------- AI (Gemini / Groq / OpenRouter) ----------
   const PROVIDERS = {
-    gemini:{ models:['gemini-flash-latest','gemini-3.8-flash','gemini-3.5-flash-lite','gemini-3-flash-preview'],
+    gemini:{ name:'Gemini', models:[
+        {id:'gemini-3.8-flash', label:'3.8 Flash — thông minh nhất', vision:true},
+        {id:'gemini-3-flash-preview', label:'3 Flash preview — dự phòng', vision:true},
+        {id:'gemini-3.6-flash', label:'3.6 Flash — ổn định', vision:true},
+        {id:'gemini-3.5-flash-lite', label:'3.5 Flash-Lite — ít quá tải', vision:true},
+        {id:'gemini-3.1-flash-lite', label:'3.1 Flash-Lite — nhẹ nhất', vision:true}],
       help:'Lấy key miễn phí: vào aistudio.google.com/apikey, đăng nhập Gmail, bấm "Create API key". Không cần thẻ.' },
-    groq:{ base:'https://api.groq.com/openai/v1', models:['meta-llama/llama-4-maverick-17b-128e-instruct','meta-llama/llama-4-scout-17b-16e-instruct'],
-      help:'Lấy key miễn phí: vào console.groq.com/keys, đăng nhập, bấm "Create API Key". Model đọc được ảnh: dòng Llama 4.' },
-    openrouter:{ base:'https://openrouter.ai/api/v1', models:['openrouter/free'],
-      help:'Lấy key miễn phí: vào openrouter.ai/keys, tạo key. Chỉ dùng model có đuôi ":free" (xem openrouter.ai/models?max_price=0). Free 50 lượt/ngày.' }
+    groq:{ name:'Groq', base:'https://api.groq.com/openai/v1', models:[
+        {id:'qwen/qwen3.8-27b', label:'Qwen 3.8 — đọc được ảnh', vision:true},
+        {id:'openai/gpt-oss-120b', label:'GPT-OSS 120B — chỉ chữ', vision:false},
+        {id:'llama-3.3-70b-versatile', label:'Llama 3.3 70B — chỉ chữ', vision:false}],
+      help:'Lấy key miễn phí: vào console.groq.com/keys, đăng nhập, bấm "Create API Key". Khi gửi ảnh, app tự dùng model đọc được ảnh.' },
+    openrouter:{ name:'OpenRouter', base:'https://openrouter.ai/api/v1', models:[
+        {id:'openrouter/free', label:'Model free ngẫu nhiên', vision:true}],
+      help:'Lấy key miễn phí: vào openrouter.ai/keys, tạo key. Gói free khoảng 50 lượt/ngày.' }
   };
-  settings.provider = settings.provider || 'gemini';
+  settings.provider = PROVIDERS[settings.provider] ? settings.provider : 'gemini';
   settings.keys = settings.keys || {}; if(settings.key && !settings.keys.gemini) settings.keys.gemini=settings.key;
   settings.models = settings.models || {};
+  // bỏ các lựa chọn model cũ không còn trong danh sách (vd. gemini-flash-latest)
+  Object.keys(settings.models).forEach(p=>{ const v=settings.models[p]; if(v && v!=='auto' && !(PROVIDERS[p]&&PROVIDERS[p].models.some(m=>m.id===v))) settings.models[p]='auto'; });
   const curKey = () => settings.keys[settings.provider]||'';
+  const sleep = ms => new Promise(r=>setTimeout(r,ms));
   function blobToB64(b){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(String(r.result).split(',')[1]); r.onerror=rej; r.readAsDataURL(b); }); }
   function parseJSON(txt){
     txt=String(txt||'').replace(/```json|```/g,'').trim();
@@ -266,47 +280,53 @@ details[open] summary::after{content:"－"}
     if(a>=0&&b>a){ try{ return JSON.parse(txt.slice(a,b+1)); }catch(e){} }
     throw {code:'bad_json'};
   }
+  let usedModel = '';
   async function gemini(prompt, image){
     const p=settings.provider, cfg=PROVIDERS[p], key=curKey();
     if(!key) throw {code:'no_key'};
     if(!navigator.onLine) throw {code:'offline'};
     const b64 = image ? await blobToB64(image) : null, mime = image ? (image.type||'image/jpeg') : null;
-    const chosen = (settings.models[p]||'').trim();
+    // thứ tự thử: model đã chọn -> model chạy được lần trước -> các model còn lại
+    const chosen = settings.models[p] && settings.models[p]!=='auto' ? settings.models[p] : null;
     const last = settings.lastGood && settings.lastGood[p];
-    const list = chosen ? [chosen] : (last ? [last].concat(cfg.models.filter(m=>m!==last)) : cfg.models);
+    let order = [chosen, last].concat(cfg.models.map(m=>m.id)).filter((m,i,a)=>m && a.indexOf(m)===i);
+    if(image) order = order.filter(id=>{ const m=cfg.models.find(x=>x.id===id); return !m || m.vision; });
     let lastErr={code:'unknown'};
-    for(const m of list){
-      let res, url, req;
-      if(p==='gemini'){
-        const parts=[{text:prompt}]; if(b64) parts.push({inline_data:{mime_type:mime,data:b64}});
-        url='https://generativelanguage.googleapis.com/v1beta/models/'+m+':generateContent';
-        req={method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify({contents:[{role:'user',parts}],generationConfig:{responseMimeType:'application/json',temperature:0.3}})};
-      }else{
-        const content = b64 ? [{type:'text',text:prompt},{type:'image_url',image_url:{url:'data:'+mime+';base64,'+b64}}] : prompt;
-        const payload={model:m,messages:[{role:'system',content:'Chỉ trả lời bằng một đối tượng JSON hợp lệ, không thêm chữ nào khác.'},{role:'user',content}],temperature:0.3};
-        if(p==='groq') payload.response_format={type:'json_object'};
-        url=cfg.base+'/chat/completions';
-        const h={'Content-Type':'application/json','Authorization':'Bearer '+key};
-        if(p==='openrouter'){ h['X-Title']='So Calo'; }
-        req={method:'POST',headers:h,body:JSON.stringify(payload)};
+    for(const m of order){
+      for(let attempt=0; attempt<2; attempt++){
+        let res, url, req;
+        if(p==='gemini'){
+          const parts=[{text:prompt}]; if(b64) parts.push({inline_data:{mime_type:mime,data:b64}});
+          url='https://generativelanguage.googleapis.com/v1beta/models/'+m+':generateContent';
+          req={method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify({contents:[{role:'user',parts}],generationConfig:{responseMimeType:'application/json',temperature:0.3}})};
+        }else{
+          const content = b64 ? [{type:'text',text:prompt},{type:'image_url',image_url:{url:'data:'+mime+';base64,'+b64}}] : prompt;
+          const payload={model:m,messages:[{role:'system',content:'Chỉ trả lời bằng một đối tượng JSON hợp lệ, không thêm chữ nào khác.'},{role:'user',content}],temperature:0.3};
+          if(p==='groq') payload.response_format={type:'json_object'};
+          url=cfg.base+'/chat/completions';
+          const h={'Content-Type':'application/json','Authorization':'Bearer '+key};
+          if(p==='openrouter') h['X-Title']='So Calo';
+          req={method:'POST',headers:h,body:JSON.stringify(payload)};
+        }
+        try{ res=await fetch(url,req); }catch(e){ lastErr={code:'network'}; break; }
+        if(res.ok){
+          const j=await res.json();
+          const txt = p==='gemini' ? ((j.candidates||[])[0]?.content?.parts||[]).map(x=>x.text||'').join('') : (j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||'';
+          try{
+            const out=parseJSON(txt);
+            usedModel=m; settings.lastGood=settings.lastGood||{};
+            if(settings.lastGood[p]!==m){ settings.lastGood[p]=m; ls.set('settings',settings); }
+            return out;
+          }catch(e){ lastErr=e; break; }
+        }
+        const t = await res.text().catch(()=> '');
+        if(res.status===401 || (res.status===403 && !/model/i.test(t))) throw {code:'bad_key'};
+        if(res.status===400 && /API key|API_KEY|invalid.*key/i.test(t)) throw {code:'bad_key'};
+        lastErr={code: res.status===429?'quota':(res.status>=500?'busy':'http'), status:res.status};
+        // 500/503 = máy chủ bận: chờ một chút rồi thử lại model này 1 lần; lỗi khác -> sang model kế tiếp
+        if(res.status>=500 && attempt===0){ await sleep(1500); continue; }
+        break;
       }
-      try{ res=await fetch(url,req); }catch(e){ lastErr={code:'network'}; continue; }
-      if(res.ok){
-        const j=await res.json();
-        const txt = p==='gemini' ? ((j.candidates||[])[0]?.content?.parts||[]).map(x=>x.text||'').join('') : (j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)||'';
-        try{
-          const out=parseJSON(txt);
-          if(!chosen){ settings.lastGood=settings.lastGood||{}; if(settings.lastGood[p]!==m){ settings.lastGood[p]=m; ls.set('settings',settings); } }
-          return out;
-        }catch(e){ lastErr=e; continue; }
-      }
-      if(res.status===401 || res.status===403){ throw {code:'bad_key'}; }
-      if(res.status===400){
-        const t=await res.text();
-        if(/API key|API_KEY|invalid.*key/i.test(t)) throw {code:'bad_key'};
-        lastErr={code:'http',status:400}; continue;
-      }
-      lastErr={code: res.status===429?'quota':'http', status:res.status};
     }
     throw lastErr;
   }
@@ -315,8 +335,9 @@ details[open] summary::after{content:"－"}
       case 'no_key': return 'Chưa có API key. Mở Cài đặt ở cuối trang để dán key, hoặc dùng Nhập tay.';
       case 'offline': return 'Đang không có mạng. Dùng Nhập tay, khi có mạng thì tính bằng AI.';
       case 'bad_key': return 'API key không đúng hoặc chưa bật. Kiểm tra lại key trong Cài đặt.';
-      case 'quota': return 'Hết lượt miễn phí tạm thời. Đợi vài phút (hoặc tới ngày mai) rồi thử lại.';
-      case 'network': return 'Không kết nối được tới Google. Kiểm tra mạng rồi thử lại.';
+      case 'quota': return 'Hết lượt miễn phí tạm thời. Đợi vài phút (hoặc tới ngày mai) rồi thử lại, hoặc đổi nhà cung cấp trong Cài đặt.';
+      case 'busy': return 'Máy chủ AI đang quá tải (đã thử tất cả model). Đợi 1–2 phút rồi bấm lại.';
+      case 'network': return 'Không kết nối được tới máy chủ AI. Kiểm tra mạng rồi thử lại.';
       case 'bad_json': return 'AI trả lời không đúng định dạng. Thử lại lần nữa.';
       default: return 'Không tính được lần này'+(e&&e.status?' (lỗi '+e.status+')':'')+'. Thử lại sau.';
     }
@@ -454,17 +475,20 @@ Trả về CHỈ JSON, tiếng Việt: {"recs":[{"name":"tên món","how":"mua/g
   // ---------- cài đặt ----------
   function loadProviderUI(){
     const p=$('provider').value, cfg=PROVIDERS[p];
-    $('key').value=settings.keys[p]||''; $('model').value=settings.models[p]||'';
-    $('model').placeholder='Tự chọn: '+cfg.models[0]; $('keyHelp').textContent=cfg.help;
+    $('key').value=settings.keys[p]||'';
+    $('model').innerHTML='<option value="auto">Tự động (khuyên dùng)</option>'+cfg.models.map(m=>'<option value="'+m.id+'">'+esc(m.label)+'</option>').join('');
+    $('model').value=settings.models[p]||'auto'; if(!$('model').value) $('model').value='auto';
+    $('keyHelp').textContent=cfg.help;
   }
-  function readSettings(){ const p=$('provider').value; settings.provider=p; settings.keys[p]=$('key').value.trim(); settings.models[p]=$('model').value.trim(); ls.set('settings',settings); render(); }
+  function readSettings(){ const p=$('provider').value; settings.provider=p; settings.keys[p]=$('key').value.trim(); settings.models[p]=$('model').value||'auto'; ls.set('settings',settings); render(); }
   $('provider').value=settings.provider; loadProviderUI();
   $('provider').addEventListener('change',loadProviderUI);
-  $('saveKey').onclick=()=>{ readSettings(); $('keyMsg').textContent=curKey()?'Đã lưu. Đang dùng '+$('provider').selectedOptions[0].text.split(' —')[0]+'.':'Đã xóa key.'; };
+  $('saveKey').onclick=()=>{ readSettings(); $('keyMsg').textContent=curKey()?'Đã lưu. Đang dùng '+PROVIDERS[settings.provider].name+'.':'Đã xóa key.'; };
   $('testKey').onclick=async ()=>{
-    readSettings(); $('keyMsg').textContent='Đang thử...';
-    try{ await gemini('Trả về JSON {"ok":true}'); const lg=settings.lastGood&&settings.lastGood[settings.provider]; $('keyMsg').textContent='Key hoạt động'+(settings.models[settings.provider]||lg?' (model: '+(settings.models[settings.provider]||lg)+')':'')+'.'; }
+    readSettings(); const btn=$('testKey'); btn.disabled=true; $('keyMsg').textContent='Đang thử...';
+    try{ await gemini('Trả về JSON {"ok":true}'); $('keyMsg').textContent='Key hoạt động. Model đang dùng: '+usedModel+'.'; }
     catch(e){ $('keyMsg').textContent=errMsg(e); }
+    finally{ btn.disabled=false; }
   };
   $('exportBtn').onclick=()=>{
     const data=JSON.stringify({app:'so-calo',version:1,exported:new Date().toISOString(),body,meals},null,1);
