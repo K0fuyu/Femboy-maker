@@ -1,0 +1,16 @@
+{
+  "name": "Sổ Calo",
+  "short_name": "Sổ Calo",
+  "description": "Ghi bữa ăn, ước tính calo bằng AI và gợi ý món Việt",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fbf7fb",
+  "theme_color": "#c2477e",
+  "lang": "vi",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
